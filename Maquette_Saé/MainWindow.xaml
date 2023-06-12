@@ -1,0 +1,52 @@
+﻿<Window x:Class="Maquette_Saé.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maquette_Saé"
+        mc:Ignorable="d"
+       Title="ESF Application" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Liste des clients -->
+        <ListView Grid.Column="0" ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Nom}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Grid Grid.Column="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Sélection du cours collectif -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Discipline:" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding CoursCollectifs}" SelectedItem="{Binding SelectedCoursCollectif}" DisplayMemberPath="Discipline" Margin="10,0,0,0" />
+                <TextBlock Text="Public:" VerticalAlignment="Center" Margin="20,0,0,0" />
+                <ComboBox ItemsSource="{Binding CoursCollectifs}" SelectedItem="{Binding SelectedCoursCollectif}" DisplayMemberPath="Public" Margin="10,0,0,0" />
+                <TextBlock Text="Niveau:" VerticalAlignment="Center" Margin="20,0,0,0" />
+                <ComboBox ItemsSource="{Binding CoursCollectifs}" SelectedItem="{Binding SelectedCoursCollectif}" DisplayMemberPath="Niveau" Margin="10,0,0,0" />
+            </StackPanel>
+
+            <!-- Liste des créneaux disponibles pour le cours collectif sélectionné -->
+            <ListBox Grid.Row="1" ItemsSource="{Binding CoursCollectifs}" SelectedItem="{Binding SelectedCoursCollectif}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Creneau}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Grid.Row="2" Content="Inscrire" Command="{Binding InscrireClientCoursCollectif}" />
+        </Grid>
+    </Grid>
+</Window>
